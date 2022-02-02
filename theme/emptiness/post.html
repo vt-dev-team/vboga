@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        <%= POST.title %> - <%= CONFIG.site.title %>
+    </title>
+</head>
+
+<body>
+    <h1>
+        <%= POST.title %>
+    </h1>
+    in <%= POST.category %>, at <%= POST.date %>
+    <hr />
+    <%- POST.content %>
+    <hr />
+    Powered by Vboga, theme Emptiness
+</body>
+
+</html>

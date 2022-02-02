@@ -1,0 +1,17 @@
+{
+  "name": "vboga",
+  "version": "1.0.0",
+  "description": "A blog system",
+  "author": "yemaster",
+  "license": "MIT",
+  "scripts": {
+    "list": "node ./api/list.js",
+    "new": "node ./api/new.js",
+    "build": "node ./api/renderer.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "moment": "^2.29.1",
+    "showdown": "^1.9.1"
+  }
+}
