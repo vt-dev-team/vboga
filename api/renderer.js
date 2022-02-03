@@ -128,6 +128,8 @@ catch (e) {
 }
 
 PostList.forEach((v) => {
+    toFileName = CONFIG.link[v.type]
+    toFileName = toFileName.replace(/\{title\}/g, v.title).replace(/\{file\}/g, v.file)
     v["link"] = `/${toFileName}.html`
 })
 

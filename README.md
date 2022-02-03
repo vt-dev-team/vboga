@@ -1,6 +1,17 @@
 # vboga
 A blog system
 
+## 更新日志
+
+- v0.0.2
+  - 支持自定义链接
+  - 支持include函数
+  - 支持主题设置config.json
+
+- v0.0.1
+  - 支持markdown文档
+  - 支持多主题
+
 ## 用法
 
 1.   新建文章或者新建页面
