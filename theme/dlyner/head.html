@@ -1,0 +1,20 @@
+<meta charset="utf-8">
+<title>
+    <%= CONFIG.site.title %>
+</title>
+<script src="/statics/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/statics/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="/statics/style.css">
+<script src="/statics/semantic.min.js"></script>
+<script>
+    function pageScroll() {
+        window.scrollBy(0, -50)
+        scrollDelay = setTimeout(pageScroll, 10)
+        if ($(window).scrollTop() <= 10) {
+            clearTimeout(scrollDelay)
+        }
+    }
+    $(document).ready(function () {
+        $('#totop').click(pageScroll)
+    })
+</script>

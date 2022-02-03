@@ -14,6 +14,9 @@ const getList = () => {
         else
             throw e
     }
+    blogList.forEach((v) => {
+        v["date"] = moment(v["date"]).format("YYYY-MM-DD HH:mm:ss")
+    })
     return blogList
 }
 const randomString = (l) => {
@@ -62,7 +65,6 @@ const getPost = (t) => {
         throw `找不到文章${t.title}`
     if (!fs.existsSync(`./data/posts/${p.file}.md`))
         throw 'md文件不存在'
-    p["date"] = moment(p["date"]).format("YYYY-MM-DD HH:mm:ss")
     p["content"] = converter.makeHtml(fs.readFileSync(`./data/posts/${p.file}.md`).toString())
     return p
 }

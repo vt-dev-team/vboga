@@ -1,0 +1,12 @@
+<div class="ui menu borderless top fixed">
+    <div class="ui container">
+        <a href="." class="logo item">
+            <%= CONFIG.site.title %>
+        </a>
+        <% THEME.menu.forEach(function(item){%>
+            <a href="<%= item.link %>" class="item">
+                <%=item.name %>
+            </a>
+            <% }) %>
+    </div>
+</div>

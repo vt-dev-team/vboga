@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('head.html', {title:POST.title, CONFIG:CONFIG}) %>
+</head>
+
+<body>
+    <%- include('menu.html', { CONFIG:CONFIG }) %>
+    <div class="ui container">
+        <div class="ui two column stackable grid" id="main">
+            <div class="computer only four wide column">
+                <%- include('left.html', { CONFIG:CONFIG }) %>
+            </div>
+            <div class="twelve wide column">
+                <div id="content">
+                    <div class="ui text container fadeIn" id="blog-container">
+                        <h1 class="ui">
+                            <%= POST.title %>
+                        </h1>
+                        <div class="ui divider"></div>
+                        <div id="article-content">
+                            <%- POST.content %>
+                            <br>
+                        </div>
+                        <p>
+                            <i class="wait icon"></i><%= POST.date %> in <a href="javascript: void(0)"><%= POST.category %></a>
+                        </p>
+                    
+                        <div id="article-comments"></div>
+                    </div>
+                </div>
+                <div class="ui divider"></div>
+                <div class="ui vertical segment footer">
+                    Powered by <a href="https://github.com/vt-dev-team/vboga">VBoga</a>
+                    Theme dlyner by yemaster.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui light big launch right attached fixed button" id="totop">
+        <i class="angle up icon"></i>
+    </div>
+</body>
+
+</html>

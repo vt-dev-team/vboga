@@ -50,7 +50,7 @@ const buildDir = (src, dist, callback) => {
                                 callback(err)
                             } else {
                                 if (stat.isFile()) {
-                                    let fileContent = fs.readFileSync(_src).toString()
+                                    let fileContent = fs.readFileSync(_src)
                                     if (p === "post.html" || p === "page.html") {
                                         fs.mkdirSync(`./public/${p.substring(0, p.lastIndexOf("."))}s`, true)
                                         for (let i in PostList) {
