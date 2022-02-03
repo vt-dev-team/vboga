@@ -3,5 +3,9 @@
         "title": "orz bossbaby",
         "subtitle": "bossbaby真的是太强了",
         "theme": "emptiness"
+    },
+    "link": {
+        "post": "posts/orz-{file}",
+        "page": "{title}"
     }
 }

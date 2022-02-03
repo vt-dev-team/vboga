@@ -13,11 +13,11 @@
     <h1>
         <%= POST.title %>
     </h1>
-    in <%= POST.category %>, at <%= POST.date %>
-    <hr />
-    <%- POST.content %>
-    <hr />
-    Powered by Vboga, theme Emptiness
+    <%- include('menu.html') %>
+        <hr />
+        <%- POST.content %>
+            <hr />
+            Powered by Vboga, theme Emptiness
 </body>
 
 </html>

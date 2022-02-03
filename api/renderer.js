@@ -8,34 +8,29 @@ const path = require('path')
 const ejs = require("ejs")
 const { getList, getPost } = require("./list")
 
-const PostList = getList()
-
-PostList.forEach((v) => { v["link"] = `posts/${v.file}.html` })
-
 const deleteFolder = (path) => {
     let files = [];
     if (fs.existsSync(path)) {
-        files = fs.readdirSync(path);
+        files = fs.readdirSync(path)
         files.forEach(function (file, index) {
-            let curPath = path + "/" + file;
+            let curPath = path + "/" + file
             if (fs.statSync(curPath).isDirectory()) {
-                deleteFolder(curPath);
+                deleteFolder(curPath)
             } else {
-                fs.unlinkSync(curPath);
+                fs.unlinkSync(curPath)
             }
-        });
+        })
         fs.rmdirSync(path);
     }
 }
 
-const copyDir = (src, dist, callback) => {
+const buildDir = (src, dist, callback) => {
     fs.access(dist, function (err) {
         if (err) {
-            // 目录不存在时创建目录
-            fs.mkdirSync(dist);
+            fs.mkdirSync(dist)
         }
-        _copy(null, src, dist);
-    });
+        _copy(null, src, dist)
+    })
 
     function _copy(err, src, dist) {
         if (err) {
@@ -46,41 +41,67 @@ const copyDir = (src, dist, callback) => {
                     callback(err)
                 } else {
                     paths.forEach(function (p) {
-                        var _src = src + '/' + p;
-                        var _dist = dist + '/' + p;
+                        var _src = src + '/' + p
+                        var _dist = dist + '/' + p
+                        if (p === "config.json")
+                            return
                         fs.stat(_src, function (err, stat) {
                             if (err) {
-                                callback(err);
+                                callback(err)
                             } else {
-                                // 判断是文件还是目录
                                 if (stat.isFile()) {
                                     let fileContent = fs.readFileSync(_src).toString()
-                                    if (p === "post.html") {
-                                        fs.mkdirSync("./public/posts", true)
+                                    if (p === "post.html" || p === "page.html") {
+                                        fs.mkdirSync(`./public/${p.substring(0, p.lastIndexOf("."))}s`, true)
                                         for (let i in PostList) {
-                                            let p = getPost(PostList[i].title)
-                                            ejs.renderFile(`./theme/${CONFIG.site.theme}/post.html`, {
+                                            let postView = getPost(PostList[i])
+                                            let toFileName
+                                            if (postView.type + '.html' !== p)
+                                                continue
+                                            ejs.renderFile(`./theme/${CONFIG.site.theme}/${p}`, {
                                                 CONFIG: CONFIG,
-                                                POST: p
+                                                THEME: THEME,
+                                                POST: postView
                                             }, (err, data) => {
                                                 if (err)
                                                     throw err
-                                                fs.writeFileSync(`./public/posts/${p.file}.html`, data)
+                                                try {
+                                                    toFileName = CONFIG.link[postView.type]
+                                                    toFileName = toFileName.replace(/\{title\}/g, postView.title).replace(/\{file\}/g, postView.file)
+                                                    toFileName = './public/' + toFileName + '.html'
+                                                    fs.writeFileSync(toFileName, data)
+                                                    console.log(`Render:\t ${_src} => ${toFileName}`)
+                                                }
+                                                catch (e) {
+                                                    console.log(`Failed to save ${toFileName}(${e})`)
+                                                    fs.writeFileSync(`./public/${postView.type}s/${postView.file}.html`, data)
+                                                    console.log(`Render:\t ${_src} => ./public/${postView.type}s/${postView.file}.html`)
+                                                }
                                             })
                                         }
                                     }
                                     else {
                                         if (path.extname(_src) === ".html") {
-                                            fileContent = ejs.render(fileContent, {
+                                            ejs.renderFile(_src, {
                                                 CONFIG: CONFIG,
-                                                POSTS: PostList
+                                                THEME: THEME,
+                                                POSTS: PostList.filter((v) => {
+                                                    return v["type"] === "post"
+                                                })
+                                            }, (err, data) => {
+                                                if (err)
+                                                    throw err
+                                                console.log(`Render:\t ${_src} => ${_dist}`)
+                                                fs.writeFileSync(_dist, data)
                                             })
                                         }
-                                        fs.writeFileSync(_dist, fileContent)
+                                        else {
+                                            console.log(`Copy:\t ${_src} => ${_dist}`)
+                                            fs.writeFileSync(_dist, fileContent)
+                                        }
                                     }
                                 } else if (stat.isDirectory()) {
-                                    // 当是目录是，递归复制
-                                    copyDir(_src, _dist, callback)
+                                    buildDir(_src, _dist, callback)
                                 }
                             }
                         })
@@ -92,13 +113,24 @@ const copyDir = (src, dist, callback) => {
 }
 
 deleteFolder("./public")
+
+let PostList = getList()
 let CONFIG = {}
+let THEME = {}
+
 try {
     CONFIG = JSON.parse(fs.readFileSync('./data/config.json', 'utf-8'))
+    if (fs.existsSync(`./theme/${CONFIG.site.theme}/config.json`))
+        THEME = JSON.parse(fs.readFileSync(`./theme/${CONFIG.site.theme}/config.json`, 'utf-8'))
 }
 catch (e) {
     throw e
 }
-copyDir(`./theme/${CONFIG.site.theme}`, './public', err => {
+
+PostList.forEach((v) => {
+    v["link"] = `/${toFileName}.html`
+})
+
+buildDir(`./theme/${CONFIG.site.theme}`, './public', err => {
     throw err
 })

@@ -7,10 +7,12 @@
   "scripts": {
     "list": "node ./api/list.js",
     "new": "node ./api/new.js",
-    "build": "node ./api/renderer.js"
+    "build": "node ./api/renderer.js",
+    "server": "http-server"
   },
   "dependencies": {
     "ejs": "^3.1.6",
+    "http-server": "^14.1.0",
     "moment": "^2.29.1",
     "showdown": "^1.9.1"
   }

@@ -14,23 +14,6 @@ const getList = () => {
         else
             throw e
     }
-    /*fs.readFile('./data/list.json', 'utf-8', (err, data) => {
-        if (err) {
-            fs.writeFile('./data/list.json', JSON.stringify([]), err2 => {
-                if (err2)
-                    console.log('尝试初始化list.json，但是', err2)
-                else
-                    console.log('初始化list.json成功');
-            })
-            return
-        }
-        try {
-            blogList = JSON.parse(data)
-        }
-        catch (e) {
-            console.log('尝试读取list.json，但是', e)
-        }
-    })*/
     return blogList
 }
 const randomString = (l) => {
@@ -43,7 +26,7 @@ const randomString = (l) => {
 const isInList = (q) => {
     let l = getList()
     for (let i in l) {
-        if (l[i].title === q)
+        if (l[i].title === q.title && l[i].type === q.type)
             return l[i]
     }
     return false
@@ -51,7 +34,10 @@ const isInList = (q) => {
 const checkArticle = (o) => {
     if (typeof o !== "object")
         return false
-    return o.hasOwnProperty("title") && o.hasOwnProperty("category") && o.hasOwnProperty("date")
+    return o.hasOwnProperty("title") &&
+        o.hasOwnProperty("category") &&
+        o.hasOwnProperty("date") &&
+        o.hasOwnProperty("type")
 }
 const addToList = (o) => {
     let l = getList()
@@ -73,7 +59,7 @@ const getPost = (t) => {
     let l = getList()
     let p = isInList(t)
     if (p == false)
-        throw `找不到文章${t}`
+        throw `找不到文章${t.title}`
     if (!fs.existsSync(`./data/posts/${p.file}.md`))
         throw 'md文件不存在'
     p["date"] = moment(p["date"]).format("YYYY-MM-DD HH:mm:ss")
