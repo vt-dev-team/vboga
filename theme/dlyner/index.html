@@ -8,52 +8,52 @@
 <body>
     <%- include('menu.html', { CONFIG:CONFIG }) %>
 
-    <div class="ui container">
-        <div class="ui two column stackable grid" id="main">
-            <div class="computer only four wide column">
-                <%- include('left.html', { CONFIG:CONFIG }) %>
-            </div>
-            <div class="twelve wide column">
-                <div id="content">
-                    <div class="ui divided items">
-                        <% POSTS.forEach(function(item){ %>
-                            <div class="item">
-                                <div class="content">
-                                    <h2 class="postTitle">
-                                        <a href="<%= item.link %>">
-                                            <%= item.title %>
-                                        </a>
-                                    </h2>
-                                    <div class="description">
-                                        <p></p>
-                                    </div>
-                                    <div class="extra">
-                                        <div class="ui label">
-                                            <i class="clock icon"></i>
-                                            <%= item.date %>
+        <div class="ui container">
+            <div class="ui two column stackable grid" id="main">
+                <div class="computer only four wide column">
+                    <%- include('left.html', { CONFIG:CONFIG }) %>
+                </div>
+                <div class="twelve wide column">
+                    <div id="content">
+                        <div class="fadeIn">
+                            <% POSTS.forEach(function(item){ %>
+                                <div class="v-card item" style="margin-bottom: 10px">
+                                    <div class="content">
+                                        <h2 class="postTitle">
+                                            <a href="<%= item.link %>">
+                                                <%= item.title %>
+                                            </a>
+                                        </h2>
+                                        <div class="description">
+                                            <p></p>
                                         </div>
-                                        <a class="ui label" @click="type = post.type">
-                                            <i class="tags icon"></i>
-                                            <%= item.category %>
-                                        </a>
+                                        <div class="extra">
+                                            <div class="ui label">
+                                                <i class="clock icon"></i>
+                                                <%= item.date %>
+                                            </div>
+                                            <a class="ui label" @click="type = post.type">
+                                                <i class="tags icon"></i>
+                                                <%= item.category %>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <% }) %>
+                                <% }) %>
+                        </div>
                     </div>
                 </div>
-                <div class="ui divider"></div>
-                <div class="ui vertical segment footer">
-                    Powered by <a href="https://github.com/vt-dev-team/vboga">VBoga</a>
-                    Theme dlyner by yemaster.
-                </div>
+            </div>
+            <div class="ui divider"></div>
+            <div class="ui vertical segment footer">
+                Powered by <a href="https://github.com/vt-dev-team/vboga">VBoga</a>
+                Theme dlyner by yemaster.
             </div>
         </div>
-    </div>
 
-    <div class="ui light big launch right attached fixed button" id="totop">
-        <i class="angle up icon"></i>
-    </div>
+        <div class="ui light big launch right attached fixed button" id="totop">
+            <i class="angle up icon"></i>
+        </div>
 </body>
 
 </html>

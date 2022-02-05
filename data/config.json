@@ -1,11 +1,11 @@
 {
     "site": {
-        "title": "orz bossbaby",
-        "subtitle": "bossbaby真的是太强了",
+        "title": "VBoga",
+        "subtitle": "A Simple Fast blog system",
         "theme": "dlyner"
     },
     "link": {
-        "post": "posts/orz-{file}",
+        "post": "posts/vboga-{file}",
         "page": "{title}"
     }
 }
