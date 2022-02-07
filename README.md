@@ -20,6 +20,7 @@ A blog system
 ## TODO List
 
 - [ ] 规范目录引入，目前成为依赖装好之后不能require/input
+- [ ] 开发服务器
 - [x] build之后往github等push(试验中)
 - [ ] 支持插件
 - [ ] 优化代码结构
