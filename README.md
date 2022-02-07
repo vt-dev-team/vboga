@@ -16,6 +16,14 @@ A blog system
   - 支持markdown文档
   - 支持多主题
 
+
+## TODO List
+
+- [ ] 规范目录引入，目前成为依赖装好之后不能require/input
+- [x] build之后往github等push(试验中)
+- [ ] 支持插件
+- [ ] 优化代码结构
+
 ## 原装程序清单
 
 ```
