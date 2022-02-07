@@ -3,6 +3,10 @@ A blog system
 
 ## 更新日志
 
+- v0.0.3
+  - 支持cli和直接引入
+  - 支持自定义渲染方式
+
 - v0.0.2
   - 支持自定义链接
   - 支持include函数
@@ -11,6 +15,24 @@ A blog system
 - v0.0.1
   - 支持markdown文档
   - 支持多主题
+
+## 原装程序清单
+
+```
+├─api            #用于存放命令文件
+|  ├─build.js    #用于构建public文件夹
+|  ├─config.js   #用于设置文件的读取
+|  ├─list.js     #用于文章列表的读取和操作
+|  └─core.js     #用于存放核心函数
+├─data           #用于存放数据文件
+│  └─config.json #用于存放设置
+└─theme          #用于存放主题文件
+   ├─dlyner      #默认主题
+   └─emptiness   #最初的主题，已经弃用
+```
+
+## 目录
+
 
 ## 用法
 
@@ -53,15 +75,15 @@ A blog system
      }
      ```
 
-     链接中 {file} 会自动解析为文件名，{title} 会自动解析为标题
+     链接中 `{file}` 会自动解析为文件名，`{title}` 会自动解析为标题
 
-     如果文件名不合法，将自动保存为 /{type}s/{file}，{type} 为文章类型(post/page)。
+     如果文件名不合法，将自动保存为 `/{type}s/{file}`，`{type}` 为文章类型(post/page)。
 
      文章只能保存在 pages 或者 posts 或者根目录中
 
 2.   主题编写说明
 
-     默认主题 emptiness
+     自带两个主题：dlyner和emptiness，可做参考。
 
      主题采用ejs模板引擎
 
@@ -102,3 +124,7 @@ A blog system
 
          -   THEME
          -   POSTS: 列表，post类型的文章。比上面少content，多link(链接地址)
+
+3.   主题安装说明
+
+     要想安装一个主题，下载解压到themes目录，然后设置data/config.json即可。

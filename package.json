@@ -1,14 +1,18 @@
 {
   "name": "vboga",
-  "version": "1.0.0",
+  "version": "0.0.3",
   "description": "A blog system",
   "author": "yemaster",
   "license": "MIT",
+  "main": "./lib/vboga.js",
   "scripts": {
-    "list": "node ./api/list.js",
-    "new": "node ./api/new.js",
-    "build": "node ./api/renderer.js",
+    "list": "node ./lib/list.js",
+    "new": "node ./lib/new.js",
+    "build": "node ./lib/build.js",
     "server": "http-server"
+  },
+  "bin": {
+    "vboga": "./lib/cli.js"
   },
   "dependencies": {
     "ejs": "^3.1.6",
